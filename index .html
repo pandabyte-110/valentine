@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Be My Valentine</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #ffd6e7;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Floating hearts background */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    animation: floatUp linear forwards;
+    pointer-events: none;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh);
+        opacity: 0;
+    }
+}
+
+/* Full screen layout */
+.card {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    text-align: center;
+    padding-top: 22vh;
+}
+
+h3 {
+    font-size: 7vw;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 14px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#yesBtn {
+    background: #ff4d88;
+    color: white;
+}
+
+#noBtn {
+    background: #ddd;
+    position: absolute;
+}
+
+#message {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ff4d88;
+    font-size: 5vw;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h3>Will you be my Valentine? 💖</h3>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+    <div id="message"></div>
+</div>
+
+<script>
+const name = "Alex"; // change name here
+
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+
+function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    noBtn.style.left = Math.random() * maxX + "px";
+    noBtn.style.top = Math.random() * maxY + "px";
+}
+
+noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
+
+document.getElementById("yesBtn").onclick = () => {
+    message.innerText = `Yay! I love you, ❤️`;
+};
+
+/* Floating heart generator */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
